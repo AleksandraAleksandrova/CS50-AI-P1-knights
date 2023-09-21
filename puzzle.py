@@ -30,9 +30,6 @@ knowledge1 = And(
     Not(And(AKnight, AKnave)),
     Or(BKnight, BKnave),
     Not(And(BKnight, BKnave)),
-    Not(And(AKnight, BKnight)),
-    Not(And(AKnave, BKnave)),
-    Not(And(AKnight, BKnave)),
 
     # information about what the characters actually said
     Implication(AKnight, And(AKnave, BKnave)),
@@ -48,8 +45,6 @@ knowledge2 = And(
     Not(And(AKnight, AKnave)),
     Or(BKnight, BKnave),
     Not(And(BKnight, BKnave)),
-    Not(And(AKnight, BKnight)),
-    Not(And(AKnave, BKnave)),
 
     # information about what the characters actually said
     Implication(AKnight, Or(And(AKnight, BKnight), And(AKnave, BKnave))),
@@ -64,7 +59,22 @@ knowledge2 = And(
 # B says "C is a knave."
 # C says "A is a knight."
 knowledge3 = And(
-    # TODO
+    # information about the structure of the problem itself
+    Or(AKnight, AKnave),
+    Not(And(AKnight, AKnave)),
+    Or(BKnight, BKnave),
+    Not(And(BKnight, BKnave)),
+    Or(CKnight, CKnave),
+    Not(And(CKnight, CKnave)),
+    # information about what the characters actually said
+    Implication(AKnight, Or(AKnight, AKnave)),
+    Implication(AKnave, Not(Or(AKnight, AKnave))),
+    Implication(CKnight, AKnight),
+    Implication(CKnave, Not(AKnight)),
+    Implication(BKnight, CKnave),
+    Implication(BKnave, Not(CKnave)),
+
+    # B says "A said 'I am a knave'."
 )
 
 
