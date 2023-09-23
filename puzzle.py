@@ -66,6 +66,7 @@ knowledge3 = And(
     Not(And(BKnight, BKnave)),
     Or(CKnight, CKnave),
     Not(And(CKnight, CKnave)),
+
     # information about what the characters actually said
     Implication(AKnight, Or(AKnight, AKnave)),
     Implication(AKnave, Not(Or(AKnight, AKnave))),
@@ -74,7 +75,11 @@ knowledge3 = And(
     Implication(BKnight, CKnave),
     Implication(BKnave, Not(CKnave)),
 
-    # B says "A said 'I am a knave'."
+    Implication(And(BKnight, AKnight), AKnave),
+    Implication(And(BKnight, AKnave), Not(AKnave)),
+    Implication(And(BKnave, AKnight), Not(AKnave)),
+    Implication(And(BKnave, AKnave), AKnave)
+   
 )
 
 
@@ -85,7 +90,7 @@ def main():
         ("Puzzle 1", knowledge1),
         ("Puzzle 2", knowledge2),
         ("Puzzle 3", knowledge3)
-    ]
+        ]
     for puzzle, knowledge in puzzles:
         print(puzzle)
         if len(knowledge.conjuncts) == 0:
